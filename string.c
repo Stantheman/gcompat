@@ -1,4 +1,40 @@
-#include <string.h>	/* strndup */
+#include <assert.h>	/* assert */
+#include <string.h>	/* memcpy, strcpy, strncat, strndup */
+
+/* "Checked" memcpy */
+void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(len <= destlen);
+	if(src < dest)
+	{
+		assert(!(src + len >= dest));
+	} else {
+		assert(!(dest + len >= src));
+	}
+	return memcpy(dest, src, len);
+}
+
+/* "Checked" strncat */
+char *__strncat_chk(char *dest, const char *src, size_t n, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(n <= destlen);
+
+	return strncat(dest, src, n);
+}
+
+/* "Checked" strcpy */
+char *__strcpy_chk(char *dest, const char *src, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(strlen(src) < destlen);
+
+	return strcpy(dest, src);
+}
 
 /* Literally a useless __ alias. */
 char *__strndup(const char *str, size_t count)
