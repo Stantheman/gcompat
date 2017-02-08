@@ -26,6 +26,22 @@ char *__strncat_chk(char *dest, const char *src, size_t n, size_t destlen)
 	return strncat(dest, src, n);
 }
 
+/* "Checked" strcat */
+char *__strcat_chk(char *dest, const char *src, size_t destlen)
+{
+	return strncat(dest, src, destlen - 1);
+}
+
+/* "Checked" strncpy */
+char *__strncpy_chk(char *dest, const char *src, size_t n, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(strlen(src) < destlen);
+
+	return strncpy(dest, src, n);
+}
+
 /* "Checked" strcpy */
 char *__strcpy_chk(char *dest, const char *src, size_t destlen)
 {
