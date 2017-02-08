@@ -45,6 +45,20 @@ int __fprintf_chk(FILE *stream, int flag, const char *format, ...)
 	return result;
 }
 
+int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
+{
+	va_list argp;
+	int result;
+
+	assert(strlen > 0);
+
+	va_start(argp, format);
+	result = vsnprintf(str, strlen, format, argp);
+	va_end(argp);
+
+	return result;
+}
+
 int __snprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *format, ...)
 {
 	va_list argp;
@@ -52,7 +66,6 @@ int __snprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *
 
 	if(flag > 0)
 	{
-		assert(str != NULL);
 		assert(format != NULL);
 	}
 	// must always be done per LFS
@@ -72,7 +85,6 @@ int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen, const w
 
 	if(flag > 0)
 	{
-		assert(wcs != NULL);
 		assert(format != NULL);
 	}
 	// must always be done per LFS
@@ -85,10 +97,13 @@ int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen, const w
 	return result;
 }
 
-int __vasprintf_chk(char **strp, const char *fmt, va_list ap)
+int __vasprintf_chk(char **strp, int flag, const char *fmt, va_list ap)
 {
-	assert(strp != NULL);
-	assert(fmt != NULL);
+	if(flag > 0)
+	{
+		assert(strp != NULL);
+		assert(fmt != NULL);
+	}
 	return vasprintf(strp, fmt, ap);
 }
 
@@ -106,7 +121,6 @@ int __vsnprintf_chk(char *str, size_t size, int flag, size_t strlen, const char 
 {
 	if(flag > 0)
 	{
-		assert(str != NULL);
 		assert(format != NULL);
 	}
 	// must always be done per LFS
