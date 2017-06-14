@@ -5,6 +5,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/gnulib.c		\
 	libgcompat/malloc.c		\
 	libgcompat/math.c		\
+	libgcompat/pthread.c		\
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\
 	libgcompat/stdio.c		\
