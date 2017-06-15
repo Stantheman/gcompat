@@ -47,3 +47,10 @@ If the interpreter path is different than expected, use PatchELF or install a sy
 
 Just add libgcompat.so to the DT_NEEDED entries in the ELF that you want to have the gcompat symbols available in.
 Use a tool such as PatchELF for this.
+
+
+## special environment variables
+
+* `GLIBC_FAKE_VERSION` will override the result of `gnu_get_libc_version`, which currently defaults to "2.8".
+* `GLIBC_FAKE_DEBUG` will cause dlmopen and dlvsym to display the overrides they are performing, and may cause
+  additional output to stderr with other functions in the future.
