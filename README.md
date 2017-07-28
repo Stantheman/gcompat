@@ -45,8 +45,12 @@ If the interpreter path is different than expected, use PatchELF or install a sy
 
 ## making musl programs accept glibc binaries for dlopen(3)
 
-Just add libgcompat.so to the DT_NEEDED entries in the ELF that you want to have the gcompat symbols available in.
-Use a tool such as PatchELF for this.
+You have two options:
+
+* You can add libgcompat.so to the DT_NEEDED entries in the ELF that you want to have the gcompat symbols available in.
+  Use a tool such as PatchELF for this.
+
+* Alternatively, you can link the musl binary against libgcompat.
 
 
 ## special environment variables
