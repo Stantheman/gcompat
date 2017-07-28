@@ -6,6 +6,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/malloc.c		\
 	libgcompat/math.c		\
 	libgcompat/pthread.c		\
+	libgcompat/pwd.c		\
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\
 	libgcompat/stdio.c		\
