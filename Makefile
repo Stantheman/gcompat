@@ -28,13 +28,13 @@ LOADER_PATH = /lib/${LOADER_NAME}
 all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 
 ${LIBGCOMPAT_NAME}: ${LIBGCOMPAT_OBJ}
-	gcc -o ${LIBGCOMPAT_NAME} -Wl,-soname,${LIBGCOMPAT_NAME} -shared ${LIBGCOMPAT_OBJ}
+	$(CC) -o ${LIBGCOMPAT_NAME} -Wl,-soname,${LIBGCOMPAT_NAME} -shared ${LIBGCOMPAT_OBJ}
 
 ${LOADER_NAME}: ${LOADER_OBJ}
-	gcc -o ${LOADER_NAME} -fPIE -static ${LOADER_OBJ}
+	$(CC) -o ${LOADER_NAME} -fPIE -static ${LOADER_OBJ}
 
 .c.o:
-	gcc -fPIC -DPIC -DLINKER=\"${LINKER_PATH}\" -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" ${CFLAGS} ${CPPFLAGS} -c -o $@ $<
+	$(CC) -fPIC -DPIC -DLINKER=\"${LINKER_PATH}\" -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" ${CFLAGS} ${CPPFLAGS} -c -o $@ $<
 
 clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}
