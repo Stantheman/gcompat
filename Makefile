@@ -14,6 +14,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/stdlib.c		\
 	libgcompat/string.c		\
 	libgcompat/sysctl.c		\
+	libgcompat/ucontext.c		\
 	libgcompat/version.c
 LIBGCOMPAT_OBJ = ${LIBGCOMPAT_SRC:.c=.o}
 LIBGCOMPAT_SOVERSION = 0
