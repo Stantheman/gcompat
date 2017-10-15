@@ -7,6 +7,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/math.c		\
 	libgcompat/pthread.c		\
 	libgcompat/pwd.c		\
+	libgcompat/resolv.c		\
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\
 	libgcompat/stdio.c		\
