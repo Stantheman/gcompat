@@ -25,6 +25,7 @@
 
 #include <string.h>	/* memset */
 #include <stdlib.h>	/* {m,c,re}alloc, free */
+#include <malloc.h>	/* memalign */
 
 struct mallinfo {
 	int arena;     /* Non-mmapped space allocated (bytes) */
@@ -64,6 +65,11 @@ void *__libc_calloc(size_t nmemb, size_t size)
 void *__libc_realloc(void *ptr, size_t size)
 {
 	return realloc(ptr, size);
+}
+
+void *__libc_memalign(size_t align, size_t len)
+{
+	return memalign(align, len);
 }
 
 extern __typeof(__libc_malloc) __malloc __attribute__((weak, alias("__libc_malloc")));
