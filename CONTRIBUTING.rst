@@ -32,9 +32,9 @@ Include comments
 When using the ``#include`` preprocessor directive, add a comment next to it
 detailing the interfaces used from that header.  For example:
 
-```
-#include <stdlib.h>     // getenv
-```
+::
+ 
+  #include <stdlib.h>     /* getenv */
 
 
 Tabs
@@ -64,7 +64,7 @@ This section describes the usual flows of contribution to this repository.
 GitLab Pull Requests
 ````````````````````
 
-#. If you do not already have a GitLab account, you must create one.
+#. If you do not already have an Adélie GitLab_ account, you must create one.
 
 #. Create a *fork* of the packages repository.  For more information, consult
    the GitLab online documentation.
@@ -85,6 +85,8 @@ GitLab Pull Requests
 #. Choose the *Create Pull Request* button.
 
 #. Review your changes to ensure they are correct, and then submit the form.
+
+.. GitLab_: https://code.foxkit.us/
 
 
 Mailing List

@@ -58,3 +58,11 @@ You have two options:
 * `GLIBC_FAKE_VERSION` will override the result of `gnu_get_libc_version`, which currently defaults to "2.8".
 * `GLIBC_FAKE_DEBUG` will cause dlmopen and dlvsym to display the overrides they are performing, and may cause
   additional output to stderr with other functions in the future.
+
+## reporting issues
+
+If you are having issues with gcompat, please report them at our [bug tracker](https://bts.adelielinux.org/).
+
+## contributing
+
+If you want to contribute code or documentation, please see the CONTRIBUTING.rst file in this repository.
