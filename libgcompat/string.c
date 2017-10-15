@@ -1,5 +1,6 @@
 #include <assert.h>	/* assert */
 #include <string.h>	/* memcpy, strcpy, strncat, strndup */
+#include <stdlib.h>	/* strto[u?]ll */
 
 /* "Checked" memcpy */
 void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
@@ -81,4 +82,15 @@ char *__strtok_r(char *str, const char *delim, char **saveptr)
 char *__strsep_g(char **stringp, const char *delim)
 {
 	return strsep(stringp, delim);
+}
+
+/* Some day, when musl supports LC_NUMERIC, we can probably remove these */
+long long int strtoll_l(const char *nptr, char **endptr, int base, locale_t locale)
+{
+	return strtoll(nptr, endptr, base);
+}
+
+unsigned long long int strtoull_l(const char *nptr, char **endptr, int base, locale_t locale)
+{
+	return strtoull(nptr, endptr, base);
 }
