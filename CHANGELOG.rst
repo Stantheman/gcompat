@@ -10,6 +10,24 @@
 
 
 
+0.2.0 (Not Yet Released)
+========================
+
+Build system
+------------
+
+* Ensure correct compilation on GCC 4.x.
+
+
+sysctl
+------
+
+* Don't build where SYS__sysctl is not defined (at least aarch64), credit to
+  Michael Gehring of VoidLinux for finding this error.
+
+
+
+
 0.1.0 (2017-10-15)
 ==================
 
