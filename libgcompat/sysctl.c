@@ -1,8 +1,8 @@
-#include <errno.h>
-#include <string.h>
-#include <unistd.h>
+#include <unistd.h>	/* size_t */
 #include <sys/syscall.h>
 
+
+#ifdef SYS__sysctl
 
 struct __sysctl_args {
 	int *name;
@@ -26,3 +26,5 @@ int sysctl (int *name, int nlen, void *oldval, size_t *oldlenp, void *newval, si
 
 	return syscall(SYS__sysctl, &args);
 }
+
+#endif /* SYS__sysctl */
