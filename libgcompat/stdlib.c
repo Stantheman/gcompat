@@ -60,6 +60,16 @@ float __strtof_internal(const char *nptr, char **endptr, int group)
 }
 
 /**
+ * Underlying function for strtol.
+ */
+long __strtol_internal(const char *nptr, char **endptr, int base, int group)
+{
+	assert(group == 0);
+
+	return strtol(nptr, endptr, base);
+}
+
+/**
  * Underlying function for strtold.
  *
  * "__group shall be 0 or the behavior of __strtold_internal() is undefined."
