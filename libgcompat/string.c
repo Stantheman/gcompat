@@ -84,16 +84,3 @@ char *__strsep_g(char **stringp, const char *delim)
 {
 	return strsep(stringp, delim);
 }
-
-/* Some day, when musl supports LC_NUMERIC, we can probably remove these */
-long long int strtoll_l(const char *nptr, char **endptr, int base,
-                        locale_t locale)
-{
-	return strtoll(nptr, endptr, base);
-}
-
-unsigned long long int strtoull_l(const char *nptr, char **endptr, int base,
-                                  locale_t locale)
-{
-	return strtoull(nptr, endptr, base);
-}
