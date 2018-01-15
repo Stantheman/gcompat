@@ -1,4 +1,5 @@
-/* struct mallinfo pulled from mallinfo.3:
+/*
+ * struct mallinfo pulled from mallinfo.3:
  *
  * Copyright (c) 2012 by Michael Kerrisk <mtk.manpages@gmail.com>
  *
@@ -42,12 +43,17 @@ struct mallinfo {
 	int keepcost; /* Top-most, releasable space (bytes) */
 };
 
-struct mallinfo mallinfo(void)
+void *__libc_calloc(size_t nmemb, size_t size)
 {
-	struct mallinfo my_info;
-	memset(&my_info, 0, sizeof(struct mallinfo));
-	return my_info;
+	return calloc(nmemb, size);
 }
+alias(__libc_calloc, __calloc);
+
+void __libc_free(void *ptr)
+{
+	free(ptr);
+}
+alias(__libc_free, __free);
 
 void *__libc_malloc(size_t size)
 {
@@ -55,17 +61,11 @@ void *__libc_malloc(size_t size)
 }
 alias(__libc_malloc, __malloc);
 
-void __libc_free(void *ptr)
+void *__libc_memalign(size_t align, size_t len)
 {
-	return free(ptr);
+	return memalign(align, len);
 }
-alias(__libc_free, __free);
-
-void *__libc_calloc(size_t nmemb, size_t size)
-{
-	return calloc(nmemb, size);
-}
-alias(__libc_calloc, __calloc);
+alias(__libc_memalign, __memalign);
 
 void *__libc_realloc(void *ptr, size_t size)
 {
@@ -73,7 +73,9 @@ void *__libc_realloc(void *ptr, size_t size)
 }
 alias(__libc_realloc, __realloc);
 
-void *__libc_memalign(size_t align, size_t len)
+struct mallinfo mallinfo(void)
 {
-	return memalign(align, len);
+	struct mallinfo info;
+	memset(&info, 0, sizeof(info));
+	return info;
 }
