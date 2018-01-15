@@ -24,6 +24,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/syslog.c		\
 	libgcompat/ucontext.c		\
 	libgcompat/unistd.c		\
+	libgcompat/utmp.c		\
 	libgcompat/version.c		\
 	libgcompat/wchar.c
 LIBGCOMPAT_OBJ = ${LIBGCOMPAT_SRC:.c=.o}
