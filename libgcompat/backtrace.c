@@ -9,16 +9,16 @@
 int backtrace(void **addr_buf, int size)
 {
 	void *curr;
-	_frame_level(addr_buf, curr, 0, size)
-	_frame_level(addr_buf, curr, 1, size)
-	_frame_level(addr_buf, curr, 2, size)
-	_frame_level(addr_buf, curr, 3, size)
-	_frame_level(addr_buf, curr, 4, size)
-	_frame_level(addr_buf, curr, 5, size)
-	_frame_level(addr_buf, curr, 6, size)
-	_frame_level(addr_buf, curr, 7, size)
-	_frame_level(addr_buf, curr, 8, size)
-	_frame_level(addr_buf, curr, 9, size)
+	_frame_level(addr_buf, curr, 0, size);
+	_frame_level(addr_buf, curr, 1, size);
+	_frame_level(addr_buf, curr, 2, size);
+	_frame_level(addr_buf, curr, 3, size);
+	_frame_level(addr_buf, curr, 4, size);
+	_frame_level(addr_buf, curr, 5, size);
+	_frame_level(addr_buf, curr, 6, size);
+	_frame_level(addr_buf, curr, 7, size);
+	_frame_level(addr_buf, curr, 8, size);
+	_frame_level(addr_buf, curr, 9, size);
 	return 9;
 }
 
