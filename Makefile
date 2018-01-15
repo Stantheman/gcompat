@@ -16,6 +16,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\
 	libgcompat/signal.c		\
+	libgcompat/socket.c		\
 	libgcompat/stdio.c		\
 	libgcompat/stdlib.c		\
 	libgcompat/string.c		\
