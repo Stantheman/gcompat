@@ -9,6 +9,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/malloc.c		\
 	libgcompat/math.c		\
 	libgcompat/misc.c		\
+	libgcompat/netdb.c		\
 	libgcompat/pthread.c		\
 	libgcompat/pwd.c		\
 	libgcompat/resolv.c		\
