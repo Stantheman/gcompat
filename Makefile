@@ -21,6 +21,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/stdlib.c		\
 	libgcompat/string.c		\
 	libgcompat/sysctl.c		\
+	libgcompat/syslog.c		\
 	libgcompat/ucontext.c		\
 	libgcompat/version.c		\
 	libgcompat/wchar.c
