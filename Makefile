@@ -2,6 +2,7 @@ LIBGCOMPAT_INCLUDE = \
 	libgcompat/alias.h
 LIBGCOMPAT_SRC = \
 	libgcompat/dlfcn.c		\
+	libgcompat/error.c		\
 	libgcompat/execinfo.c		\
 	libgcompat/gnulib.c		\
 	libgcompat/grp.c		\
