@@ -1,3 +1,5 @@
+LIBGCOMPAT_INCLUDE = \
+	libgcompat/alias.h
 LIBGCOMPAT_SRC = \
 	libgcompat/backtrace.c		\
 	libgcompat/dlmopen.c		\
@@ -32,6 +34,8 @@ all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 ${LIBGCOMPAT_NAME}: ${LIBGCOMPAT_OBJ}
 	$(CC) -o ${LIBGCOMPAT_NAME} -Wl,-soname,${LIBGCOMPAT_NAME} \
 		-shared ${LIBGCOMPAT_OBJ}
+
+${LIBGCOMPAT_OBJ}: ${LIBGCOMPAT_INCLUDE}
 
 ${LOADER_NAME}: ${LOADER_OBJ}
 	$(CC) -o ${LOADER_NAME} -fPIE -static ${LOADER_OBJ}

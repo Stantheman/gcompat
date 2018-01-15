@@ -2,6 +2,8 @@
 #include <stdlib.h> /* strto[u?]ll */
 #include <string.h> /* memcpy, strcpy, strncat, strndup */
 
+#include "alias.h" /* weak_alias */
+
 /* "Checked" memcpy */
 void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
 {
@@ -60,7 +62,7 @@ char *__strndup(const char *str, size_t count)
 
 /* The existance of this method, and the fact it is used in real code, gives
  * me nightmares. */
-void *rawmemchr(const void *s, int c)
+void *__rawmemchr(const void *s, int c)
 {
 	const unsigned char *haystack = s;
 	unsigned char needle = (unsigned char) c;
@@ -68,9 +70,7 @@ void *rawmemchr(const void *s, int c)
 		;
 	return (void *) haystack;
 }
-
-extern __typeof(rawmemchr) __rawmemchr
-    __attribute__((weak, alias("rawmemchr")));
+weak_alias(__rawmemchr, rawmemchr);
 
 /* Another useless __ alias */
 char *__strtok_r(char *str, const char *delim, char **saveptr)

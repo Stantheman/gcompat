@@ -27,6 +27,8 @@
 #include <stdlib.h> /* {m,c,re}alloc, free */
 #include <string.h> /* memset */
 
+#include "alias.h" /* alias */
+
 struct mallinfo {
 	int arena;    /* Non-mmapped space allocated (bytes) */
 	int ordblks;  /* Number of free chunks */
@@ -51,31 +53,27 @@ void *__libc_malloc(size_t size)
 {
 	return malloc(size);
 }
+alias(__libc_malloc, __malloc);
 
 void __libc_free(void *ptr)
 {
 	return free(ptr);
 }
+alias(__libc_free, __free);
 
 void *__libc_calloc(size_t nmemb, size_t size)
 {
 	return calloc(nmemb, size);
 }
+alias(__libc_calloc, __calloc);
 
 void *__libc_realloc(void *ptr, size_t size)
 {
 	return realloc(ptr, size);
 }
+alias(__libc_realloc, __realloc);
 
 void *__libc_memalign(size_t align, size_t len)
 {
 	return memalign(align, len);
 }
-
-extern __typeof(__libc_malloc) __malloc
-    __attribute__((weak, alias("__libc_malloc")));
-extern __typeof(__libc_calloc) __calloc
-    __attribute__((weak, alias("__libc_calloc")));
-extern __typeof(__libc_realloc) __realloc
-    __attribute__((weak, alias("__libc_realloc")));
-extern __typeof(__libc_free) __free __attribute__((weak, alias("__libc_free")));

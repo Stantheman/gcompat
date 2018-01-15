@@ -1,26 +1,27 @@
 #include <math.h> /* isinf, isnan */
 
+#include "alias.h" /* weak_alias */
+
 int __isinff(float number)
 {
 	return isinf(number);
 }
+weak_alias(__isinff, isinff);
 
 int __isinf(double number)
 {
 	return isinf(number);
 }
+weak_alias(__isinf, isinf);
 
 int __isnanf(float number)
 {
 	return isnan(number);
 }
+weak_alias(__isnanf, isnanf);
 
 int __isnan(double number)
 {
 	return isnan(number);
 }
-
-extern __typeof(__isnanf) isnanf __attribute__((weak, alias("__isnanf")));
-extern __typeof(__isnan) isnan __attribute__((weak, alias("__isnan")));
-extern __typeof(__isinff) isinff __attribute__((weak, alias("__isinff")));
-extern __typeof(__isinf) isinf __attribute__((weak, alias("__isinf")));
+weak_alias(__isnan, isnan);
