@@ -1,8 +1,7 @@
 LIBGCOMPAT_INCLUDE = \
 	libgcompat/alias.h
 LIBGCOMPAT_SRC = \
-	libgcompat/dlmopen.c		\
-	libgcompat/dlvsym.c		\
+	libgcompat/dlfcn.c		\
 	libgcompat/execinfo.c		\
 	libgcompat/gnulib.c		\
 	libgcompat/malloc.c		\
