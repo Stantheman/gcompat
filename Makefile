@@ -4,6 +4,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/dlfcn.c		\
 	libgcompat/execinfo.c		\
 	libgcompat/gnulib.c		\
+	libgcompat/grp.c		\
 	libgcompat/malloc.c		\
 	libgcompat/math.c		\
 	libgcompat/pthread.c		\
