@@ -23,6 +23,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/sysctl.c		\
 	libgcompat/syslog.c		\
 	libgcompat/ucontext.c		\
+	libgcompat/unistd.c		\
 	libgcompat/version.c		\
 	libgcompat/wchar.c
 LIBGCOMPAT_OBJ = ${LIBGCOMPAT_SRC:.c=.o}
