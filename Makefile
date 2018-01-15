@@ -41,9 +41,10 @@ ${LOADER_NAME}: ${LOADER_OBJ}
 	$(CC) -o ${LOADER_NAME} -fPIE -static ${LOADER_OBJ}
 
 .c.o:
-	$(CC) -std=c99 -D_BSD_SOURCE -fPIC -DPIC -DLINKER=\"${LINKER_PATH}\" \
-		-DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" ${CFLAGS} ${CPPFLAGS} \
-		-c -o $@ $<
+	$(CC) -c -D_BSD_SOURCE -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" \
+		-DLINKER=\"${LINKER_PATH}\" -DLOADER=\"${LOADER_NAME}\" \
+		-fPIC -std=c99 -Wall -Wextra -Wno-frame-address \
+		-Wno-unused-parameter ${CFLAGS} ${CPPFLAGS} -o $@ $<
 
 clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}
