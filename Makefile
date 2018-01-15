@@ -44,6 +44,11 @@ ${LOADER_NAME}: ${LOADER_OBJ}
 clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 
+format:
+	clang-format -i ${LIBGCOMPAT_SRC} ${LOADER_SRC}
+
 install: all
 	install -D -m755 ${LIBGCOMPAT_NAME} ${DESTDIR}/${LIBGCOMPAT_PATH}
 	install -D -m755 ${LOADER_NAME} ${DESTDIR}/${LOADER_PATH}
+
+.PHONY: all clean format install
