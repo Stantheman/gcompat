@@ -17,16 +17,17 @@
  * very obviously won't work here.
  */
 #ifndef NO_BROKEN_SHADOW_SETRLIMIT
-int (*real_rlimit)(int, const struct rlimit *);
+static int (*real_rlimit)(int, const struct rlimit *);
 
 int setrlimit(int resource, const struct rlimit *rlim)
 {
 	struct rlimit my_rlim;
-	real_rlimit = dlsym(RTLD_NEXT, "setrlimit");
-	assert(real_rlimit != NULL);
 
+	if (real_rlimit == NULL) {
+		real_rlimit = dlsym(RTLD_NEXT, "setrlimit");
+		assert(real_rlimit);
+	}
 	memcpy(&my_rlim, rlim, sizeof(struct rlimit));
-
 	if (my_rlim.rlim_cur == 0) {
 		my_rlim.rlim_cur = my_rlim.rlim_max;
 	}
