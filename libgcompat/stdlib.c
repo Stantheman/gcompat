@@ -1,5 +1,5 @@
-#include <assert.h>	// assert
-#include <stdlib.h>	// strtod
+#include <assert.h> /* assert */
+#include <stdlib.h> /* strtod */
 
 char *__realpath_chk(const char *path, char *resolved_path)
 {

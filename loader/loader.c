@@ -10,14 +10,14 @@
  * from the use of this software.
  */
 
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <limits.h>
 
 #ifndef PATH_MAX
-#define PATH_MAX      16384
+#define PATH_MAX 16384
 #endif
 
 #ifndef LINKER
@@ -28,7 +28,8 @@
 #error LIBGCOMPAT must be defined
 #endif
 
-int main(int argc, char *argv[], char *envp[]) {
+int main(int argc, char *argv[], char *envp[])
+{
 	size_t i = 0;
 	char target[PATH_MAX];
 	char **new_argv = calloc(sizeof(char *), argc + 5);

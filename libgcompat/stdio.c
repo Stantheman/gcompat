@@ -15,8 +15,7 @@ int __printf_chk(int flag, const char *format, ...)
 	va_list argp;
 	int result;
 
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(format != NULL);
 	}
 
@@ -32,8 +31,7 @@ int __fprintf_chk(FILE *stream, int flag, const char *format, ...)
 	va_list argp;
 	int result;
 
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(stream != NULL);
 		assert(format != NULL);
 	}
@@ -59,13 +57,13 @@ int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
 	return result;
 }
 
-int __snprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *format, ...)
+int __snprintf_chk(char *str, size_t size, int flag, size_t strlen,
+                   const char *format, ...)
 {
 	va_list argp;
 	int result;
 
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(format != NULL);
 	}
 	// must always be done per LFS
@@ -78,13 +76,13 @@ int __snprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *
 	return result;
 }
 
-int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen, const wchar_t *format, ...)
+int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen,
+                   const wchar_t *format, ...)
 {
 	va_list argp;
 	int result;
 
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(format != NULL);
 	}
 	// must always be done per LFS
@@ -99,8 +97,7 @@ int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen, const w
 
 int __vasprintf_chk(char **strp, int flag, const char *fmt, va_list ap)
 {
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(strp != NULL);
 		assert(fmt != NULL);
 	}
@@ -109,22 +106,20 @@ int __vasprintf_chk(char **strp, int flag, const char *fmt, va_list ap)
 
 int __vfprintf_chk(FILE *stream, int flag, const char *format, va_list ap)
 {
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(stream != NULL);
 		assert(format != NULL);
 	}
 	return vfprintf(stream, format, ap);
 }
 
-int __vsnprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *format, va_list ap)
+int __vsnprintf_chk(char *str, size_t size, int flag, size_t strlen,
+                    const char *format, va_list ap)
 {
-	if(flag > 0)
-	{
+	if (flag > 0) {
 		assert(format != NULL);
 	}
 	// must always be done per LFS
 	assert(size <= strlen);
 	return vsnprintf(str, size, format, ap);
 }
-

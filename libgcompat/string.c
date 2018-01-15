@@ -1,6 +1,6 @@
-#include <assert.h>	/* assert */
-#include <string.h>	/* memcpy, strcpy, strncat, strndup */
-#include <stdlib.h>	/* strto[u?]ll */
+#include <assert.h> /* assert */
+#include <stdlib.h> /* strto[u?]ll */
+#include <string.h> /* memcpy, strcpy, strncat, strndup */
 
 /* "Checked" memcpy */
 void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
@@ -8,8 +8,7 @@ void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
 	assert(dest != NULL);
 	assert(src != NULL);
 	assert(len <= destlen);
-	if(src < dest)
-	{
+	if (src < dest) {
 		assert(!(src + len >= dest));
 	} else {
 		assert(!(dest + len >= src));
@@ -64,12 +63,14 @@ char *__strndup(const char *str, size_t count)
 void *rawmemchr(const void *s, int c)
 {
 	const unsigned char *haystack = s;
-	unsigned char needle = (unsigned char)c;
-	while(*haystack++ != needle);
-	return (void *)haystack;
+	unsigned char needle = (unsigned char) c;
+	while (*haystack++ != needle)
+		;
+	return (void *) haystack;
 }
 
-extern __typeof(rawmemchr) __rawmemchr __attribute__((weak, alias("rawmemchr")));
+extern __typeof(rawmemchr) __rawmemchr
+    __attribute__((weak, alias("rawmemchr")));
 
 /* Another useless __ alias */
 char *__strtok_r(char *str, const char *delim, char **saveptr)
@@ -85,12 +86,14 @@ char *__strsep_g(char **stringp, const char *delim)
 }
 
 /* Some day, when musl supports LC_NUMERIC, we can probably remove these */
-long long int strtoll_l(const char *nptr, char **endptr, int base, locale_t locale)
+long long int strtoll_l(const char *nptr, char **endptr, int base,
+                        locale_t locale)
 {
 	return strtoll(nptr, endptr, base);
 }
 
-unsigned long long int strtoull_l(const char *nptr, char **endptr, int base, locale_t locale)
+unsigned long long int strtoull_l(const char *nptr, char **endptr, int base,
+                                  locale_t locale)
 {
 	return strtoull(nptr, endptr, base);
 }

@@ -1,4 +1,4 @@
-#include <math.h>	// isinf, isnan
+#include <math.h> /* isinf, isnan */
 
 int __isinff(float number)
 {
