@@ -1,96 +1,247 @@
-#include <assert.h>	/* assert */
-#include <string.h>	/* memcpy, strcpy, strncat, strndup */
-#include <stdlib.h>	/* strto[u?]ll */
+#define _GNU_SOURCE /* mempcpy */
+#include <assert.h> /* assert */
+#include <stddef.h> /* NULL, size_t */
+#include <stdint.h> /* SIZE_MAX */
+#include <string.h> /* memcpy, strcpy, strncat, strndup */
 
-/* "Checked" memcpy */
-void *__memcpy_chk(void *dest, const void *src, size_t len, size_t destlen)
+#include "alias.h" /* weak_alias */
+
+/**
+ * Copy bytes in memory, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---memcpy-chk-1.html
+ */
+void *__memcpy_chk(void *dest, const void *src, size_t n, size_t destlen)
 {
 	assert(dest != NULL);
 	assert(src != NULL);
-	assert(len <= destlen);
-	if(src < dest)
-	{
-		assert(!(src + len >= dest));
+	assert(destlen >= n);
+	if (dest < src) {
+		assert((char *) dest + n <= (char *) src);
 	} else {
-		assert(!(dest + len >= src));
+		assert((char *) src + n <= (char *) dest);
 	}
-	return memcpy(dest, src, len);
+
+	return memcpy(dest, src, n);
 }
 
-/* "Checked" strncat */
-char *__strncat_chk(char *dest, const char *src, size_t n, size_t destlen)
+/**
+ * Copy bytes in memory with overlapping areas, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---memmove-chk-1.html
+ */
+void *__memmove_chk(void *dest, const void *src, size_t n, size_t destlen)
 {
 	assert(dest != NULL);
 	assert(src != NULL);
-	assert(n <= destlen);
+	assert(destlen >= n);
 
-	return strncat(dest, src, n);
+	return memmove(dest, src, n);
 }
 
-/* "Checked" strcat */
+/**
+ * Copy bytes in memory.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---mempcpy.html
+ */
+void *__mempcpy(void *dest, const void *src, size_t n)
+{
+	return mempcpy(dest, src, n);
+}
+
+/**
+ * Copy bytes in memory, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---mempcpy-chk-1.html
+ */
+void *__mempcpy_chk(void *dest, const void *src, size_t n, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(destlen >= n);
+	if (dest < src) {
+		assert((char *) dest + n <= (char *) src);
+	} else {
+		assert((char *) src + n <= (char *) dest);
+	}
+
+	return mempcpy(dest, src, n);
+}
+
+/**
+ * Set bytes in memory, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---memset-chk-1.html
+ */
+void *__memset_chk(void *s, int c, size_t n, size_t buflen)
+{
+	assert(s != NULL);
+	assert(buflen >= n);
+
+	return memset(s, c, n);
+}
+
+/**
+ * Find byte in memory.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---rawmemchr.html
+ */
+void *__rawmemchr(const void *s, int c)
+{
+	return memchr(s, c, SIZE_MAX);
+}
+weak_alias(__rawmemchr, rawmemchr);
+
+/**
+ * Copy a string and return a pointer to the end of the result, with buffer
+ * overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---stpcpy-chk-1.html
+ */
+char *__stpcpy_chk(char *dest, const char *src, size_t destlen)
+{
+	size_t n = strlen(src) + 1;
+
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(destlen >= n);
+	if (dest < src) {
+		assert(dest + n <= src);
+	} else {
+		assert(src + n <= dest);
+	}
+
+	return stpcpy(dest, src);
+}
+
+/**
+ * Copy a fixed-length string, returning a pointer to the array end, with buffer
+ * overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---stpncpy-chk-1.html
+ */
+char *__stpncpy_chk(char *dest, const char *src, size_t n, size_t destlen)
+{
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(destlen >= n);
+	if (dest < src) {
+		assert(dest + n <= src);
+	} else {
+		assert(src + n <= dest);
+	}
+
+	return stpncpy(dest, src, n);
+}
+
+/**
+ * Concatenate two strings, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strcat-chk-1.html
+ */
 char *__strcat_chk(char *dest, const char *src, size_t destlen)
 {
-	return strncat(dest, src, destlen - 1);
-}
+	size_t n = strlen(src) + 1;
+	size_t total = strnlen(dest, destlen) + n;
 
-/* "Checked" strncpy */
-char *__strncpy_chk(char *dest, const char *src, size_t n, size_t destlen)
-{
 	assert(dest != NULL);
 	assert(src != NULL);
-	assert(strlen(src) < destlen);
+	assert(destlen >= total);
+	if (dest < src) {
+		assert(dest + total <= src);
+	} else {
+		assert(src + n <= dest);
+	}
 
-	return strncpy(dest, src, n);
+	return strcat(dest, src);
 }
 
-/* "Checked" strcpy */
+/**
+ * Copy a string, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strcpy-chk-1.html
+ */
 char *__strcpy_chk(char *dest, const char *src, size_t destlen)
 {
+	size_t n = strlen(src) + 1;
+
 	assert(dest != NULL);
 	assert(src != NULL);
-	assert(strlen(src) < destlen);
+	assert(destlen >= n);
+	if (dest < src) {
+		assert(dest + n <= src);
+	} else {
+		assert(src + n <= dest);
+	}
 
 	return strcpy(dest, src);
 }
 
-/* Literally a useless __ alias. */
-char *__strndup(const char *str, size_t count)
+/**
+ * Concatenate a string with part of another, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strncat-chk-1.html
+ */
+char *__strncat_chk(char *dest, const char *src, size_t n, size_t destlen)
 {
-	return strndup(str, count);
+	size_t total = strnlen(dest, destlen) + n + 1;
+
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(destlen >= total);
+	if (dest < src) {
+		assert(dest + total <= src);
+	} else {
+		assert(src + n <= dest);
+	}
+
+	return strncat(dest, src, n);
 }
 
-/* The existance of this method, and the fact it is used in real code, gives
- * me nightmares. */
-void *rawmemchr(const void *s, int c)
+/**
+ * Copy a fixed-length string, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strncpy-chk-1.html
+ */
+char *__strncpy_chk(char *dest, const char *src, size_t n, size_t destlen)
 {
-	const unsigned char *haystack = s;
-	unsigned char needle = (unsigned char)c;
-	while(*haystack++ != needle);
-	return (void *)haystack;
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(destlen >= n);
+	if (dest < src) {
+		assert(dest + n <= src);
+	} else {
+		assert(src + n <= dest);
+	}
+
+	return strncpy(dest, src, n);
 }
 
-extern __typeof(rawmemchr) __rawmemchr __attribute__((weak, alias("rawmemchr")));
-
-/* Another useless __ alias */
-char *__strtok_r(char *str, const char *delim, char **saveptr)
+/**
+ * Duplicate a specific number of bytes from a string.
+ */
+char *__strndup(const char *s, size_t size)
 {
-	return strtok_r(str, delim, saveptr);
+	return strndup(s, size);
 }
 
-/* The "global" definition of strsep in glibc, used when architecture dependent
- * assembler versions aren't good enough. */
+/**
+ * Extract token from string.
+ *
+ * The "global" definition of strsep in glibc, used when architecture dependent
+ * assembler versions aren't good enough.
+ */
 char *__strsep_g(char **stringp, const char *delim)
 {
 	return strsep(stringp, delim);
 }
 
-/* Some day, when musl supports LC_NUMERIC, we can probably remove these */
-long long int strtoll_l(const char *nptr, char **endptr, int base, locale_t locale)
+/**
+ * Split string into tokens.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strtok-r-1.html
+ */
+char *__strtok_r(char *s, const char *delim, char **save_ptr)
 {
-	return strtoll(nptr, endptr, base);
-}
-
-unsigned long long int strtoull_l(const char *nptr, char **endptr, int base, locale_t locale)
-{
-	return strtoull(nptr, endptr, base);
+	return strtok_r(s, delim, save_ptr);
 }

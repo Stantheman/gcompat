@@ -1,130 +1,236 @@
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <wchar.h>
+#define _GNU_SOURCE /* fgets_unlocked */
+#include <assert.h> /* assert */
+#include <stdarg.h> /* va_list, va_start, va_end */
+#include <stddef.h> /* NULL, size_t */
+#include <stdio.h>  /* feof, fgets, fread, puts, v*printf */
 
-size_t __fread_chk(void *ptr, size_t size, size_t nmemb, FILE *stream)
+int __vasprintf_chk(char **strp, int flag, const char *format, va_list ap);
+int __vfprintf_chk(FILE *stream, int flag, const char *format, va_list ap);
+int __vsnprintf_chk(char *s, size_t n, int flag, size_t slen,
+                    const char *format, va_list ap);
+int __vsprintf_chk(char *s, int flag, size_t slen, const char *format,
+                   va_list ap);
+
+/**
+ * Test end-of-file indicator on a stream.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib--io-feof-3.html
+ */
+int _IO_feof(FILE *stream)
 {
-	assert(ptr != NULL);
+	return feof(stream);
+}
+
+/**
+ * Put a string on standard output.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib--io-puts-3.html
+ */
+int _IO_puts(const char *c)
+{
+	return puts(c);
+}
+
+/**
+ * Print to allocated string, with stack checking.
+ */
+int __asprintf_chk(char **strp, int flag, const char *format, ...)
+{
+	int ret;
+	va_list ap;
+
+	va_start(ap, format);
+	ret = __vasprintf_chk(strp, flag, format, ap);
+	va_end(ap);
+
+	return ret;
+}
+
+/**
+ * String input, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---fgets-chk-1.html
+ */
+char *__fgets_chk(char *s, size_t slen, int n, FILE *stream)
+{
+	assert(s != NULL);
+	assert(slen >= (size_t) n);
+	assert(n > 0);
 	assert(stream != NULL);
-	return fread(ptr, size, nmemb, stream);
+
+	return fgets(s, n, stream);
 }
 
-int __printf_chk(int flag, const char *format, ...)
+/**
+ * Non-locking string input, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---fgets-unlocked-chk-1.html
+ */
+char *__fgets_unlocked_chk(char *s, size_t slen, int n, FILE *stream)
 {
-	va_list argp;
-	int result;
+	assert(s != NULL);
+	assert(slen >= (size_t) n);
+	assert(n > 0);
+	assert(stream != NULL);
 
-	if(flag > 0)
-	{
-		assert(format != NULL);
-	}
-
-	va_start(argp, format);
-	result = vprintf(format, argp);
-	va_end(argp);
-
-	return result;
+	return fgets_unlocked(s, n, stream);
 }
 
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---fprintf-chk-1.html
+ */
 int __fprintf_chk(FILE *stream, int flag, const char *format, ...)
 {
-	va_list argp;
-	int result;
+	int ret;
+	va_list ap;
 
-	if(flag > 0)
-	{
-		assert(stream != NULL);
-		assert(format != NULL);
-	}
+	va_start(ap, format);
+	ret = __vfprintf_chk(stream, flag, format, ap);
+	va_end(ap);
 
-	va_start(argp, format);
-	result = vfprintf(stream, format, argp);
-	va_end(argp);
-
-	return result;
+	return ret;
 }
 
-int __sprintf_chk(char *str, int flag, size_t strlen, const char *format, ...)
+/**
+ * Binary input, with stack checking.
+ */
+size_t __fread_chk(void *buf, size_t buflen, size_t size, size_t nitems,
+                   FILE *stream)
 {
-	va_list argp;
-	int result;
+	assert(buf != NULL);
+	assert(size > 0);
+	assert(buflen / size >= nitems);
+	assert(stream != NULL);
 
-	assert(strlen > 0);
-
-	va_start(argp, format);
-	result = vsnprintf(str, strlen, format, argp);
-	va_end(argp);
-
-	return result;
+	return fread(buf, size, nitems, stream);
 }
 
-int __snprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *format, ...)
+/**
+ * Format and print data, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---printf-chk-1.html
+ */
+int __printf_chk(int flag, const char *format, ...)
 {
-	va_list argp;
-	int result;
+	int ret;
+	va_list ap;
 
-	if(flag > 0)
-	{
-		assert(format != NULL);
-	}
-	// must always be done per LFS
-	assert(size <= strlen);
+	va_start(ap, format);
+	ret = __vfprintf_chk(stdout, flag, format, ap);
+	va_end(ap);
 
-	va_start(argp, format);
-	result = vsnprintf(str, size, format, argp);
-	va_end(argp);
-
-	return result;
+	return ret;
 }
 
-int __swprintf_chk(wchar_t *wcs, size_t maxlen, int flag, size_t wcslen, const wchar_t *format, ...)
+/**
+ * Convert formatted output, with buffer overflow checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---snprintf-chk-1.html
+ */
+int __snprintf_chk(char *s, size_t n, int flag, size_t slen, const char *format,
+                   ...)
 {
-	va_list argp;
-	int result;
+	int ret;
+	va_list ap;
 
-	if(flag > 0)
-	{
-		assert(format != NULL);
-	}
-	// must always be done per LFS
-	assert(maxlen <= wcslen);
+	va_start(ap, format);
+	ret = __vsnprintf_chk(s, n, flag, slen, format, ap);
+	va_end(ap);
 
-	va_start(argp, format);
-	result = vswprintf(wcs, maxlen, format, argp);
-	va_end(argp);
-
-	return result;
+	return ret;
 }
 
-int __vasprintf_chk(char **strp, int flag, const char *fmt, va_list ap)
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---sprintf-chk-1.html
+ */
+int __sprintf_chk(char *s, int flag, size_t slen, const char *format, ...)
 {
-	if(flag > 0)
-	{
-		assert(strp != NULL);
-		assert(fmt != NULL);
-	}
-	return vasprintf(strp, fmt, ap);
+	int ret;
+	va_list ap;
+
+	va_start(ap, format);
+	ret = __vsprintf_chk(s, flag, slen, format, ap);
+	va_end(ap);
+
+	return ret;
 }
 
+/**
+ * Print to allocated string, with stack checking.
+ */
+int __vasprintf_chk(char **strp, int flag, const char *format, va_list ap)
+{
+	assert(strp != NULL);
+	assert(format != NULL);
+
+	return vasprintf(strp, format, ap);
+}
+
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---vfprintf-chk-1.html
+ */
 int __vfprintf_chk(FILE *stream, int flag, const char *format, va_list ap)
 {
-	if(flag > 0)
-	{
-		assert(stream != NULL);
-		assert(format != NULL);
-	}
+	assert(stream != NULL);
+	assert(format != NULL);
+
 	return vfprintf(stream, format, ap);
 }
 
-int __vsnprintf_chk(char *str, size_t size, int flag, size_t strlen, const char *format, va_list ap)
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---vprintf-chk-1.html
+ */
+int __vprintf_chk(int flag, const char *format, va_list ap)
 {
-	if(flag > 0)
-	{
-		assert(format != NULL);
-	}
-	// must always be done per LFS
-	assert(size <= strlen);
-	return vsnprintf(str, size, format, ap);
+	return __vfprintf_chk(stdout, flag, format, ap);
 }
 
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---vsnprintf-chk-1.html
+ */
+int __vsnprintf_chk(char *s, size_t n, int flag, size_t slen,
+                    const char *format, va_list ap)
+{
+	assert(s != NULL || n == 0);
+	assert(slen >= n);
+	assert(format != NULL);
+
+	return vsnprintf(s, n, format, ap);
+}
+
+/**
+ * Convert formatted output, with stack checking.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---vsprintf-chk-1.html
+ */
+int __vsprintf_chk(char *s, int flag, size_t slen, const char *format,
+                   va_list ap)
+{
+	assert(s != NULL);
+	assert(slen > 0);
+	assert(format != NULL);
+
+	return vsprintf(s, format, ap);
+}
+
+/**
+ * Create a name for a temporary file.
+ */
+char *tmpnam_r(char *s)
+{
+	if (s == NULL) {
+		return NULL;
+	}
+
+	return tmpnam(s);
+}

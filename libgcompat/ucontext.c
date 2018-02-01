@@ -1,4 +1,4 @@
-#include <errno.h>	/* errno, ENOSYS */
+#include <errno.h> /* errno, ENOSYS */
 
 int getcontext(void *ucp)
 {
