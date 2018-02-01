@@ -19,6 +19,12 @@ Build system
 * Ensure correct compilation on GCC 4.x.
 
 
+malloc
+------
+
+* Add __sbrk.
+
+
 sysctl
 ------
 

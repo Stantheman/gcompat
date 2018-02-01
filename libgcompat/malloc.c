@@ -27,6 +27,7 @@
 #include <malloc.h> /* memalign */
 #include <stdlib.h> /* {m,c,re}alloc, free */
 #include <string.h> /* memset */
+#include <unistd.h> /* sbrk */
 
 #include "alias.h" /* alias */
 
@@ -72,6 +73,11 @@ void *__libc_realloc(void *ptr, size_t size)
 	return realloc(ptr, size);
 }
 alias(__libc_realloc, __realloc);
+
+void *__sbrk(intptr_t increment)
+{
+	return sbrk(increment);
+}
 
 struct mallinfo mallinfo(void)
 {
