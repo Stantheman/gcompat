@@ -25,6 +25,12 @@ malloc
 * Add __sbrk.
 
 
+socket
+------
+
+* Add __cmsg_nxthdr.
+
+
 sysctl
 ------
 

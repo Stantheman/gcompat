@@ -3,6 +3,16 @@
 #include <sys/socket.h> /* recv, recvfrom */
 
 /**
+ * Found in the wild needed by libcef.  It looks like glibc moved to a
+ * pure preprocessor-based solution some time ago, but this remains for
+ * compatibility.
+ */
+struct cmsghdr *__cmsg_nxthdr(struct msghdr *msg, struct cmsghdr *cmsg)
+{
+	return CMSG_NXTHDR(msg, cmsg);
+}
+
+/**
  * Receive a message from a connected socket, with buffer overflow checking.
  *
  * LSB 5.0: LSB-Core-generic/baselib---recv-chk-1.html
