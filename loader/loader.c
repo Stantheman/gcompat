@@ -82,11 +82,11 @@ void usage(void)
 int main(int argc, char *argv[], char *envp[])
 {
 	char **new_argv = calloc(argc + 6, sizeof(char *));
-	char preload[PATH_MAX];
-	char target[PATH_MAX];
+	char preload[PATH_MAX] = "";
+	char target[PATH_MAX] = "";
 	ssize_t i, j, len;
 
-	strcpy(preload, LIBGCOMPAT " ");
+	strlcpy(preload, LIBGCOMPAT " ", sizeof(preload));
 	if (getenv("LD_PRELOAD") != NULL) {
 		len = strlcat(preload, getenv("LD_PRELOAD"), sizeof(preload));
 		if ((size_t) len >= sizeof(preload)) {
