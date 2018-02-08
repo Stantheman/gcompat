@@ -31,3 +31,5 @@ unsigned int gnu_dev_minor(dev_t dev)
 {
 	return minor(dev);
 }
+
+void *__libc_stack_end = NULL;
