@@ -34,6 +34,12 @@
 #error LOADER must be defined
 #endif
 
+void usage(void)
+{
+	printf("This is the gcompat ELF interpreter stub.\n");
+	printf("You are not meant to run this directly.\n");
+}
+
 /*
  * Given the argv { "foo", "bar", "baz" }, and the environment variable
  * "LD_PRELOAD=/another/preload.so", the new argv will be {
@@ -95,6 +101,12 @@ int main(int argc, char *argv[], char *envp[])
 		return EXIT_FAILURE;
 	}
 	target[len] = '\0';
+
+	/* somebody is trying to run the loader directly */
+	if (strstr(target, LOADER) != NULL) {
+		usage();
+		return EXIT_FAILURE;
+	}
 
 	new_argv[0] = LOADER;
 	new_argv[1] = "--argv0";
