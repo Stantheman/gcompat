@@ -110,5 +110,5 @@ Mailing List
              if you have made three commits, you will use the command
              ``git format-patch HEAD^^^``.
 
-#. Email the resulting patch to the adelie-dev@lists.adelielinux.org mailing
+#. Email the resulting patch to the gcompat@lists.adelielinux.org mailing
    list, or use ``git send-email``.
