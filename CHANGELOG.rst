@@ -10,13 +10,21 @@
 
 
 
-0.2.0 (2018-02-01)
+0.2.0 (2018-02-20)
 ==================
 
 Build system
 ------------
 
 * Ensure correct compilation on GCC 4.x.
+
+
+Loader
+------
+
+* Catch attempts to exec the loader itself and handle gracefully.
+
+* Fix problems caught by valgrind memcheck.
 
 
 malloc
