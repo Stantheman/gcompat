@@ -6,6 +6,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/execinfo.c		\
 	libgcompat/gnulib.c		\
 	libgcompat/grp.c		\
+	libgcompat/internal.c		\
 	libgcompat/malloc.c		\
 	libgcompat/math.c		\
 	libgcompat/misc.c		\
@@ -53,6 +54,7 @@ ${LOADER_NAME}: ${LOADER_OBJ}
 .c.o:
 	$(CC) -c -D_BSD_SOURCE -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" \
 		-DLINKER=\"${LINKER_PATH}\" -DLOADER=\"${LOADER_NAME}\" \
+		-Ilibgcompat \
 		-fPIC -std=c99 -Wall -Wextra -Wno-frame-address \
 		-Wno-unused-parameter ${CFLAGS} ${CPPFLAGS} -o $@ $<
 
