@@ -40,11 +40,18 @@ LOADER_OBJ = ${LOADER_SRC:.c=.o}
 LOADER_NAME = ld-linux.so.2
 LOADER_PATH = /lib/${LOADER_NAME}
 
+ifdef WITH_LIBUCONTEXT
+
+LIBUCONTEXT_LIBS   = -Wl,--no-as-needed -lucontext
+LIBUCONTEXT_CFLAGS = -DWITH_LIBUCONTEXT
+
+endif
+
 all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 
 ${LIBGCOMPAT_NAME}: ${LIBGCOMPAT_OBJ}
 	$(CC) -o ${LIBGCOMPAT_NAME} -Wl,-soname,${LIBGCOMPAT_NAME} \
-		-shared ${LIBGCOMPAT_OBJ}
+		-shared ${LIBGCOMPAT_OBJ} ${LIBUCONTEXT_LIBS}
 
 ${LIBGCOMPAT_OBJ}: ${LIBGCOMPAT_INCLUDE}
 
@@ -54,7 +61,7 @@ ${LOADER_NAME}: ${LOADER_OBJ}
 .c.o:
 	$(CC) -c -D_BSD_SOURCE -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" \
 		-DLINKER=\"${LINKER_PATH}\" -DLOADER=\"${LOADER_NAME}\" \
-		-Ilibgcompat \
+		-Ilibgcompat ${LIBUCONTEXT_CFLAGS} \
 		-fPIC -std=c99 -Wall -Wextra -Wno-frame-address \
 		-Wno-unused-parameter ${CFLAGS} ${CPPFLAGS} -o $@ $<
 
