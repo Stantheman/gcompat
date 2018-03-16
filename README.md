@@ -12,12 +12,13 @@ of glibc programs to work in the same way as native musl programs.
 In order to build correctly, the gcompat build system requires a few details about the host environment, both
 from the musl end, as well as the glibc end.  These are:
 
-| Variable          | Description                                                                                       |
-|-------------------|---------------------------------------------------------------------------------------------------|
-| `LINKER_PATH`     | The location of the musl ELF interpreter.                                                         |
-| `LOADER_NAME`     | The name of the glibc ELF interpreter that would be appropriate for your architecture.            |
-| `LIBGCOMPAT_PATH` | *optional* The location to install the libgcompat.so library to.  Usually `/lib/libgcompat.so.0`. |
-| `LOADER_PATH`     | *optional* The location to install the loader to.  Usually `/lib/${LOADER_NAME}`.                 |
+| Variable           | Description                                                                                       |
+|--------------------|---------------------------------------------------------------------------------------------------|
+| `LINKER_PATH`      | The location of the musl ELF interpreter.                                                         |
+| `LOADER_NAME`      | The name of the glibc ELF interpreter that would be appropriate for your architecture.            |
+| `LIBGCOMPAT_PATH`  | *optional* The location to install the libgcompat.so library to.  Usually `/lib/libgcompat.so.0`. |
+| `LOADER_PATH`      | *optional* The location to install the loader to.  Usually `/lib/${LOADER_NAME}`.                 |
+| `WITH_LIBUCONTEXT` | *optional* Whether or not to build against `libucontext`.                                         |
 
 For example on x86_64 musl with x86_64 glibc compatibility, you would want to do:
 
