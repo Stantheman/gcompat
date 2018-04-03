@@ -30,6 +30,12 @@ socket
 * Add __poll_chk
 
 
+malloc
+------
+
+* Add malloc_trim
+
+
 0.2.0 (2018-02-20)
 ==================
 
