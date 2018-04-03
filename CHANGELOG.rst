@@ -22,7 +22,7 @@ math
 ----
 
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
-
+* Add __poll_chk
 
 
 0.2.0 (2018-02-20)
