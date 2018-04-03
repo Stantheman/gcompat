@@ -3,10 +3,10 @@
 
 void GCOMPAT__panic(const char *fmt, ...) __attribute__((noreturn));
 
-#define GCOMPAT__assert_with_reason(chk, fmt, ...) \
+#define GCOMPAT__assert_with_reason(chk, ...)			\
 	do {							\
 		if (!(chk)) {					\
-			GCOMPAT__panic(fmt, __VA_ARGS__);	\
+			GCOMPAT__panic(__VA_ARGS__);		\
 		}						\
 	}							\
 	while(0);
