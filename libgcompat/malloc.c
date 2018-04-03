@@ -85,3 +85,9 @@ struct mallinfo mallinfo(void)
 	memset(&info, 0, sizeof(info));
 	return info;
 }
+
+int malloc_trim(size_t pad)
+{
+	/* This concept doesn't really map to musl's malloc */
+	return 0;
+}
