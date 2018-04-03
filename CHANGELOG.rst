@@ -22,6 +22,11 @@ math
 ----
 
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
+
+
+socket
+------
+
 * Add __poll_chk
 
 
