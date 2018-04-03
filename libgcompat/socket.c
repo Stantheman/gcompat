@@ -39,3 +39,16 @@ ssize_t __recvfrom_chk(int fd, void *buf, size_t len, size_t buflen, int flags,
 
 	return recvfrom(fd, buf, len, flags, address, address_len);
 }
+
+/**
+ * Checked version of poll, not in LSB but found in the wild.
+ *
+ * This checks if the size of fds is large enough to hold all the fd's claimed
+ * in nfds.
+ */
+int __poll_chk(struct pollfd *fds, nfds_t nfds, int timeout, size_t fdslen)
+{
+	assert((fdslen / sizeof(*fds)) < nfds);
+
+	return poll(fds, nfds, timeout);
+}
