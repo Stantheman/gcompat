@@ -18,6 +18,12 @@ Build system
 * Allow building against libucontext.
 
 
+math
+----
+
+* Add most __*_finite functions, courtesy of Elizabeth Myers.
+
+
 
 0.2.0 (2018-02-20)
 ==================
