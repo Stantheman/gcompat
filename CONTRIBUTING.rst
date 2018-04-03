@@ -4,7 +4,7 @@
 :Author:
   * **A. Wilcox**, documentation writer
 :Copyright:
-  © 2016-2017 Adélie Linux and contributors.  NCSA open source licence.
+  © 2016-2018 Adélie Linux and contributors.  NCSA open source licence.
 
 
 
@@ -66,7 +66,7 @@ GitLab Pull Requests
 
 #. If you do not already have an Adélie GitLab_ account, you must create one.
 
-#. Create a *fork* of the packages repository.  For more information, consult
+#. Create a *fork* of the gcompat repository.  For more information, consult
    the GitLab online documentation.
 
 #. Clone your forked repository to your computer.
