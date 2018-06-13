@@ -24,6 +24,12 @@ math
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
 
 
+resolv
+------
+
+* Add __res_search -> res_search alias.
+
+
 socket
 ------
 

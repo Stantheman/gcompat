@@ -40,3 +40,9 @@ int __res_nclose(res_state statp)
 	return 0;
 }
 weak_alias(__res_nclose, res_nclose);
+
+int __res_search(const char *dname, int class, int type, unsigned char *answer,
+		 int anslen)
+{
+	return res_search(dname, class, type, answer, anslen);
+}
