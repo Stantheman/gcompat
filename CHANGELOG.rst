@@ -36,6 +36,12 @@ socket
 * Add __poll_chk
 
 
+string
+------
+
+* Add __strcspn_c2.
+
+
 malloc
 ------
 

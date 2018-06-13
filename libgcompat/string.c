@@ -178,6 +178,23 @@ char *__strcpy_chk(char *dest, const char *src, size_t destlen)
 }
 
 /**
+ * Find the substring length of a string that does not have any two characters.
+ *
+ * Not defined in LSB 5.0.  Used by spotify-client.
+ */
+size_t __strcspn_c2(const char *str, int bad, int bad2)
+{
+	size_t length = 0;
+	const char *s = str;
+	while(*s != bad && *s != bad2 && *s != '\0')
+	{
+		length++;
+		s++;
+	}
+	return length;
+}
+
+/**
  * Concatenate a string with part of another, with buffer overflow checking.
  *
  * LSB 5.0: LSB-Core-generic/baselib---strncat-chk-1.html
