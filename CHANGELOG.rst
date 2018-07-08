@@ -40,6 +40,8 @@ string
 ------
 
 * Add __strcspn_c2.
+* Add memfrob.
+* Add strfry.
 
 
 malloc

@@ -3,6 +3,9 @@
 #include <stddef.h> /* NULL, size_t */
 #include <stdint.h> /* SIZE_MAX */
 #include <string.h> /* memcpy, strcpy, strncat, strndup */
+#include <stdlib.h> /* rand_r */
+#include <unistd.h> /* getpid */
+#include <time.h>   /* time */
 
 #include "alias.h" /* weak_alias */
 
@@ -261,4 +264,35 @@ char *__strsep_g(char **stringp, const char *delim)
 char *__strtok_r(char *s, const char *delim, char **save_ptr)
 {
 	return strtok_r(s, delim, save_ptr);
+}
+
+void *memfrob(void *s, size_t n)
+{
+	unsigned char *c = s;
+
+	while (n--)
+		*c++ ^= 42;
+
+	return s;
+}
+
+char *strfry(char *s)
+{
+	static unsigned int seed;
+	size_t len = strlen(s), i, j;
+	char t;
+
+	if (!len)
+		return s;
+
+	seed += time(NULL) ^ getpid() ^ (uintptr_t)s;
+
+	for (i = 0; i < len - 1; ++i) {
+		j = rand_r(&seed) % (len - i) + i;
+		t = s[i];
+		s[i] = s[j];
+		s[j] = t;
+	}
+
+	return s;
 }
