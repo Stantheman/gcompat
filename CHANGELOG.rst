@@ -17,6 +17,11 @@ Build system
 
 * Allow building against libucontext.
 
+cxx_thread
+----------
+
+* Add __cxa_thread_atexit_impl.
+
 
 math
 ----
