@@ -16,6 +16,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/pthread.c		\
 	libgcompat/pwd.c		\
 	libgcompat/readlink.c		\
+	libgcompat/realpath.c		\
 	libgcompat/resolv.c		\
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\

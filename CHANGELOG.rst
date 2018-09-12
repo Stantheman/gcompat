@@ -35,9 +35,10 @@ math
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
 
 
-readlink
---------
+readlink/realpath
+-----------------
 
+* Intercept realpath as well as readlink.
 * Report ENOSYS on dlsym failure.
 
 
