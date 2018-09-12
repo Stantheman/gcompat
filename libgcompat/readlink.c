@@ -1,4 +1,5 @@
 #include <dlfcn.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
 #include <stddef.h>
@@ -18,6 +19,7 @@ ssize_t readlink(const char *path, char *buf, size_t len)
 	if (real_readlink == NULL) {
 		real_readlink = dlsym(RTLD_NEXT, "readlink");
 		if (real_readlink == NULL) {
+			errno = ENOSYS;
 			return -1;
 		}
 	}

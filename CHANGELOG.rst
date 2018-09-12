@@ -35,6 +35,12 @@ math
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
 
 
+readlink
+--------
+
+* Report ENOSYS on dlsym failure.
+
+
 resolv
 ------
 
