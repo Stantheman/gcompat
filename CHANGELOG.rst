@@ -68,6 +68,11 @@ string
 * Add memfrob.
 * Add strfry.
 
+unistd
+------
+
+* Add __open_2/__open64_2.
+
 
 malloc
 ------
