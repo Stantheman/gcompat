@@ -39,6 +39,7 @@ readlink/realpath
 -----------------
 
 * Intercept realpath as well as readlink.
+* Report EIO on /proc read failure.
 * Report ENOSYS on dlsym failure.
 
 

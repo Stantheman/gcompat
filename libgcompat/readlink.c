@@ -80,6 +80,7 @@ ssize_t readlink(const char *path, char *buf, size_t len)
 		close(fd);
 	fail:
 		exe[0] = '\0';
+		errno = EIO;
 		return -1;
 	}
 
