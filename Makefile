@@ -1,6 +1,7 @@
 LIBGCOMPAT_INCLUDE = \
 	libgcompat/alias.h
 LIBGCOMPAT_SRC = \
+	libgcompat/ctype.c		\
 	libgcompat/cxx_thread.c		\
 	libgcompat/dlfcn.c		\
 	libgcompat/error.c		\

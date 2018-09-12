@@ -17,6 +17,12 @@ Build system
 
 * Allow building against libucontext.
 
+ctype
+-----
+
+* Add __ctype_b.
+
+
 cxx_thread
 ----------
 
