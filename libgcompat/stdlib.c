@@ -5,6 +5,8 @@
 #include <stdlib.h> /* getenv, realpath, strto* */
 #include <unistd.h> /* get*id */
 
+#include "alias.h"
+
 /**
  * Resolve a pathname, with buffer overflow checking.
  *
@@ -30,6 +32,7 @@ char *__secure_getenv(const char *name)
 
 	return getenv(name);
 }
+weak_alias(__secure_getenv, secure_getenv);
 
 /**
  * Underlying function for strtod.

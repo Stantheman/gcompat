@@ -55,6 +55,12 @@ socket
 * Add __poll_chk
 
 
+stdlib
+------
+
+* Add secure_getenv alias to __secure_getenv.
+
+
 string
 ------
 
