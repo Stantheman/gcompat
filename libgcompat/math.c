@@ -1,8 +1,8 @@
-#define _GNU_SOURCE	/* Extra maths functions */
-#include <math.h>	/* Literally everything */
+#define _GNU_SOURCE /* Extra maths functions */
+#include <math.h>   /* Literally everything */
 
-#include "alias.h"	/* weak_alias */
-#include "internal.h"	/* GCOMPAT__assert_with_reason */
+#include "alias.h"    /* weak_alias */
+#include "internal.h" /* GCOMPAT__assert_with_reason */
 
 /**
  * Multiplies the first argument x by FLT_RADIX (probably 2) to the power of y.
@@ -14,7 +14,7 @@ long double scalbl(long double x, long double y)
 	 * 1) Good Enough(TM)
 	 * 2) scalbl is deprecated anyway
 	 * */
-	return scalblnl(x, (long int)y);
+	return scalblnl(x, (long int) y);
 }
 
 /*
@@ -143,7 +143,6 @@ int __isnan(double arg)
 	return isnan(arg);
 }
 weak_alias(__isnan, isnan);
-
 
 /**
  * Test for a NaN.
@@ -290,7 +289,6 @@ long double __asinl_finite(long double x)
 	return res;
 }
 
-
 /**
  * Returns the principal value of the arc tangent of x/y, expressed in radians.
  */
@@ -362,7 +360,6 @@ long double __atanhl_finite(long double x)
 
 	return res;
 }
-
 
 /**
  * Returns the hyperbolic cosine of x.

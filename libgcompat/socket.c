@@ -1,6 +1,6 @@
 #include <assert.h>     /* assert */
+#include <poll.h>       /* poll, pollfd, nfds_t */
 #include <stddef.h>     /* NULL */
-#include <poll.h>	/* poll, pollfd, nfds_t */
 #include <sys/socket.h> /* recv, recvfrom */
 
 /**
