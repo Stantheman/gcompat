@@ -1,4 +1,5 @@
 #include <assert.h> /* assert */
+#include <fcntl.h>  /* O_CREAT */
 #include <limits.h> /* NGROUPS_MAX */
 #include <stddef.h> /* NULL, size_t */
 #include <unistd.h> /* confstr, getcwd, getgroups, ... */
@@ -89,6 +90,14 @@ pid_t __getpgid(pid_t pid)
 {
 	return getpgid(pid);
 }
+
+int __open_2(const char *path, int oflag)
+{
+	assert(!(oflag & O_CREAT));
+
+	return open(path, oflag);
+}
+alias(__open_2, __open64_2);
 
 /**
  * Read from a file, with buffer overflow checking.

@@ -1,6 +1,8 @@
 LIBGCOMPAT_INCLUDE = \
 	libgcompat/alias.h
 LIBGCOMPAT_SRC = \
+	libgcompat/ctype.c		\
+	libgcompat/cxx_thread.c		\
 	libgcompat/dlfcn.c		\
 	libgcompat/error.c		\
 	libgcompat/execinfo.c		\
@@ -14,6 +16,7 @@ LIBGCOMPAT_SRC = \
 	libgcompat/pthread.c		\
 	libgcompat/pwd.c		\
 	libgcompat/readlink.c		\
+	libgcompat/realpath.c		\
 	libgcompat/resolv.c		\
 	libgcompat/resource.c		\
 	libgcompat/setjmp.c		\

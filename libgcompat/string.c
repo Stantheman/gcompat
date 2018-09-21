@@ -2,10 +2,10 @@
 #include <assert.h> /* assert */
 #include <stddef.h> /* NULL, size_t */
 #include <stdint.h> /* SIZE_MAX */
-#include <string.h> /* memcpy, strcpy, strncat, strndup */
 #include <stdlib.h> /* rand_r */
-#include <unistd.h> /* getpid */
+#include <string.h> /* memcpy, strcpy, strncat, strndup */
 #include <time.h>   /* time */
+#include <unistd.h> /* getpid */
 
 #include "alias.h" /* weak_alias */
 
@@ -189,8 +189,7 @@ size_t __strcspn_c2(const char *str, int bad, int bad2)
 {
 	size_t length = 0;
 	const char *s = str;
-	while(*s != bad && *s != bad2 && *s != '\0')
-	{
+	while (*s != bad && *s != bad2 && *s != '\0') {
 		length++;
 		s++;
 	}
@@ -285,7 +284,7 @@ char *strfry(char *s)
 	if (!len)
 		return s;
 
-	seed += time(NULL) ^ getpid() ^ (uintptr_t)s;
+	seed += time(NULL) ^ getpid() ^ (uintptr_t) s;
 
 	for (i = 0; i < len - 1; ++i) {
 		j = rand_r(&seed) % (len - i) + i;

@@ -17,11 +17,30 @@ Build system
 
 * Allow building against libucontext.
 
+ctype
+-----
+
+* Add __ctype_b.
+
+
+cxx_thread
+----------
+
+* Add __cxa_thread_atexit_impl.
+
 
 math
 ----
 
 * Add most __*_finite functions, courtesy of Elizabeth Myers.
+
+
+readlink/realpath
+-----------------
+
+* Intercept realpath as well as readlink.
+* Report EIO on /proc read failure.
+* Report ENOSYS on dlsym failure.
 
 
 resolv
@@ -36,12 +55,23 @@ socket
 * Add __poll_chk
 
 
+stdlib
+------
+
+* Add secure_getenv alias to __secure_getenv.
+
+
 string
 ------
 
 * Add __strcspn_c2.
 * Add memfrob.
 * Add strfry.
+
+unistd
+------
+
+* Add __open_2/__open64_2.
 
 
 malloc
