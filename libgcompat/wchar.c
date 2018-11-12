@@ -38,3 +38,15 @@ int __vswprintf_chk(wchar_t *s, size_t n, int flag, size_t slen,
 
 	return vswprintf(s, n, format, ap);
 }
+
+/**
+ * Representation of the glibc internals of wcstol(3).
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---wcstol-internal-1.html
+ */
+long int __wcstol_internal(const wchar_t *nptr, wchar_t **endptr, int base,
+			   int group)
+{
+	assert(group == 0);
+	return wcstol(nptr, endptr, base);
+}
