@@ -16,6 +16,11 @@ Build system
 
 * Allow building against libobstack.
 
+pthread
+-------
+
+* Add pthread_getname_np.
+
 wchar
 -----
 
