@@ -1,5 +1,6 @@
 LIBGCOMPAT_INCLUDE = \
-	libgcompat/alias.h
+	libgcompat/alias.h \
+	libgcompat/internal.h
 LIBGCOMPAT_SRC = \
 	libgcompat/ctype.c		\
 	libgcompat/cxx_thread.c		\
@@ -72,7 +73,7 @@ clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 
 format:
-	clang-format -i ${LIBGCOMPAT_SRC} ${LOADER_SRC}
+	clang-format -i ${LIBGCOMPAT_INCLUDE} ${LIBGCOMPAT_SRC} ${LOADER_SRC}
 
 install: all
 	install -D -m755 ${LIBGCOMPAT_NAME} ${DESTDIR}/${LIBGCOMPAT_PATH}
