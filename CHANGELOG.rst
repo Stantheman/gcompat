@@ -15,6 +15,7 @@ Build system
 ------------
 
 * Allow building against libobstack.
+* Fix compatibility with Linux 4.17 and newer.
 
 pthread
 -------
