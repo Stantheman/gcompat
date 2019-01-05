@@ -46,28 +46,30 @@ LOADER_PATH = /lib/${LOADER_NAME}
 
 ifdef WITH_LIBUCONTEXT
 
-LIBUCONTEXT_LIBS   = -Wl,--no-as-needed -lucontext
 LIBUCONTEXT_CFLAGS = -DWITH_LIBUCONTEXT
+LIBUCONTEXT_LIBS   = -lucontext
 
 endif
 
 all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 
 ${LIBGCOMPAT_NAME}: ${LIBGCOMPAT_OBJ}
-	$(CC) -o ${LIBGCOMPAT_NAME} -Wl,-soname,${LIBGCOMPAT_NAME} \
-		-shared ${LIBGCOMPAT_OBJ} ${LIBUCONTEXT_LIBS}
+	${CC} ${CFLAGS} ${LDFLAGS} -shared -Wl,-soname,${LIBGCOMPAT_NAME} \
+		-o ${LIBGCOMPAT_NAME} ${LIBGCOMPAT_OBJ} \
+		-Wl,--no-as-needed ${LIBUCONTEXT_LIBS}
 
 ${LIBGCOMPAT_OBJ}: ${LIBGCOMPAT_INCLUDE}
 
 ${LOADER_NAME}: ${LOADER_OBJ}
-	$(CC) -o ${LOADER_NAME} -fPIE -static ${LOADER_OBJ}
+	${CC} ${CFLAGS} ${LDFLAGS} -static -o ${LOADER_NAME} ${LOADER_OBJ}
 
 .c.o:
-	$(CC) -c -D_BSD_SOURCE -DLIBGCOMPAT=\"${LIBGCOMPAT_PATH}\" \
-		-DLINKER=\"${LINKER_PATH}\" -DLOADER=\"${LOADER_NAME}\" \
-		-Ilibgcompat ${LIBUCONTEXT_CFLAGS} \
-		-fPIC -std=c99 -Wall -Wextra -Wno-frame-address \
-		-Wno-unused-parameter ${CFLAGS} ${CPPFLAGS} -o $@ $<
+	${CC} ${CPPFLAGS} ${CFLAGS} -c -D_BSD_SOURCE \
+		-DLIBGCOMPAT='"${LIBGCOMPAT_PATH}"' \
+		-DLINKER='"${LINKER_PATH}"' -DLOADER='"${LOADER_NAME}"' \
+		-fPIC -Ilibgcompat -std=c99 \
+		-Wall -Wextra -Wno-frame-address -Wno-unused-parameter \
+		${LIBUCONTEXT_CFLAGS} -o $@ $<
 
 clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}
