@@ -44,11 +44,23 @@ LOADER_OBJ = ${LOADER_SRC:.c=.o}
 LOADER_NAME = ld-linux.so.2
 LOADER_PATH = /lib/${LOADER_NAME}
 
-ifdef WITH_LIBUCONTEXT
+PKG_CONFIG ?= pkg-config
 
+ifdef WITH_LIBUCONTEXT
 LIBUCONTEXT_CFLAGS = -DWITH_LIBUCONTEXT
 LIBUCONTEXT_LIBS   = -lucontext
+endif
 
+ifndef WITH_OBSTACK
+WITH_OBSTACK = $(shell \
+  for pkg in obstack obstack-standalone; do \
+    ${PKG_CONFIG} --exists "$$pkg" && { echo "$$pkg"; exit 0; } \
+  done; echo "no")
+endif
+
+ifneq (${WITH_OBSTACK},no)
+OBSTACK_CFLAGS = $(shell ${PKG_CONFIG} --cflags ${WITH_OBSTACK}) -DWITH_OBSTACK
+OBSTACK_LIBS   = $(shell ${PKG_CONFIG} --libs ${WITH_OBSTACK})
 endif
 
 all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
@@ -56,7 +68,7 @@ all: ${LIBGCOMPAT_NAME} ${LOADER_NAME}
 ${LIBGCOMPAT_NAME}: ${LIBGCOMPAT_OBJ}
 	${CC} ${CFLAGS} ${LDFLAGS} -shared -Wl,-soname,${LIBGCOMPAT_NAME} \
 		-o ${LIBGCOMPAT_NAME} ${LIBGCOMPAT_OBJ} \
-		-Wl,--no-as-needed ${LIBUCONTEXT_LIBS}
+		-Wl,--no-as-needed ${LIBUCONTEXT_LIBS} ${OBSTACK_LIBS}
 
 ${LIBGCOMPAT_OBJ}: ${LIBGCOMPAT_INCLUDE}
 
@@ -69,7 +81,7 @@ ${LOADER_NAME}: ${LOADER_OBJ}
 		-DLINKER='"${LINKER_PATH}"' -DLOADER='"${LOADER_NAME}"' \
 		-fPIC -Ilibgcompat -std=c99 \
 		-Wall -Wextra -Wno-frame-address -Wno-unused-parameter \
-		${LIBUCONTEXT_CFLAGS} -o $@ $<
+		${LIBUCONTEXT_CFLAGS} ${OBSTACK_CFLAGS} -o $@ $<
 
 clean:
 	rm -f libgcompat/*.o loader/*.o ${LIBGCOMPAT_NAME} ${LOADER_NAME}

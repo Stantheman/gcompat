@@ -11,6 +11,11 @@
 0.4.0 (201?-??-??)
 ==================
 
+Build system
+------------
+
+* Allow building against libobstack.
+
 wchar
 -----
 
