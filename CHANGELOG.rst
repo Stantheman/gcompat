@@ -11,6 +11,17 @@
 0.4.0 (201?-??-??)
 ==================
 
+Build system
+------------
+
+* Allow building against libobstack.
+* Fix compatibility with Linux 4.17 and newer.
+
+pthread
+-------
+
+* Add pthread_getname_np.
+
 wchar
 -----
 
