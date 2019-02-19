@@ -38,15 +38,17 @@ weak_alias(__register_atfork, register_atfork);
 int pthread_getname_np(pthread_t thread, char *name, size_t len)
 {
 	int fd = open("/proc/thread-self/comm", O_RDONLY | O_CLOEXEC);
-	char dummy;
+	ssize_t n;
 
 	if (fd < 0)
 		return errno;
-	if (read(fd, name, len) < 0)
+	n = read(fd, name, len);
+	if (n < 0)
 		return errno;
-	/* If there's more to read, the buffer was too small. */
-	if (read(fd, &dummy, 1) > 0)
+	/* If the trailing newline was not read, the buffer was too small. */
+	if (n == 0 || name[n - 1] != '\n')
 		return ERANGE;
+	name[n - 1] = '\0';
 
 	return 0;
 }
