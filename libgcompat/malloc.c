@@ -91,3 +91,15 @@ int malloc_trim(size_t pad)
 	/* This concept doesn't really map to musl's malloc */
 	return 0;
 }
+
+void mtrace(void)
+{
+	/* Not implemented on purpose. */
+	return;
+}
+
+void muntrace(void)
+{
+	/* Not implemented on purpose. */
+	return;
+}

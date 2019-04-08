@@ -5,7 +5,7 @@
   * **A. Wilcox**, documentation writer
   * **Contributors**, code
 :Copyright:
-  © 2016-2018 Adélie Linux and contributors.  NCSA open source licence.
+  © 2016-2019 Adélie Linux and contributors.  NCSA open source licence.
 
 
 0.4.0 (201?-??-??)
@@ -16,6 +16,11 @@ Build system
 
 * Allow building against libobstack.
 * Fix compatibility with Linux 4.17 and newer.
+
+malloc
+------
+
+* Add mtrace and muntrace.
 
 pthread
 -------
