@@ -16,11 +16,17 @@
 .. image:: https://img.shields.io/codacy/grade/1e94efed5989436fa416ede784d4f7b6.svg
    :target: https://app.codacy.com/project/awilfox/gcompat/dashboard
 
+.. image:: https://img.shields.io/coverity/scan/18278.svg
+   :target: https://scan.coverity.com/projects/adelielinux-gcompat
+
 .. image:: https://img.shields.io/badge/license-NCSA-lightgrey.svg
    :target: LICENSE
 
 .. image:: https://repology.org/badge/vertical-allrepos/gcompat.svg
    :target: https://repology.org/project/gcompat/versions
+
+.. image:: https://travis-ci.org/AdelieLinux/gcompat.svg?branch=master
+   :target: https://travis-ci.org/AdelieLinux/gcompat
 
 
 Introduction
