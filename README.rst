@@ -173,24 +173,24 @@ Usage
 =====
 
 Running binaries linked against glibc
--------------------------------------
+`````````````````````````````````````
 
 If the values specified during build were correct, programs built for glibc
 should run normally on your musl host.  If they are not working, check the
 program's ELF interpreter entry, using scanelf(8) like so:
 
-``
-$ scanelf -i ~/glibcfile
- TYPE   INTERP FILE
-ET_EXEC /lib64/ld-linux-x86-64.so.2 /home/kaniini/glibcfile
-``
+::
+
+  $ scanelf -i ~/glibcfile
+   TYPE   INTERP FILE
+  ET_EXEC /lib64/ld-linux-x86-64.so.2 /home/kaniini/glibcfile
 
 If the interpreter path is different than expected, use PatchELF or install a
 symlink from ``LOADER_PATH`` to the specified interpreter.
 
 
 Using glibc binaries via dlopen(3) from a musl program
-------------------------------------------------------
+``````````````````````````````````````````````````````
 
 There are two ways to accomplish this:
 
@@ -201,7 +201,7 @@ There are two ways to accomplish this:
 * Alternatively, you can link the musl binary against libgcompat.
 
 Environment variables
----------------------
+`````````````````````
 
 * ``GLIBC_FAKE_VERSION``
 
