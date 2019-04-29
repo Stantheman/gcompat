@@ -100,13 +100,6 @@ The following architectures are supported:
 
   This is a Tier 1 architecture in the Adélie Linux system.
 
-* s390x
-
-  This architecture is **not supported** by the Adélie Linux system.  It is
-  *untested* by the release team and may not be functional.
-
-The following architectures utilise a Linux kernel syscall:
-
 * ppc (32-bit)
 
   This is a Tier 1 architecture in the Adélie Linux system.
@@ -115,7 +108,9 @@ The following architectures utilise a Linux kernel syscall:
 
   This is a Tier 1 architecture in the Adélie Linux system.  Only the ELFv2 ABI
   is supported, and only Big Endian modes of operation are tested by the
-  release team.
+  release team.  Most glibc installations use ELFv1; only Void Linux currently
+  utilises ELFv2 and glibc.  For that reason, it is difficult to test gcompat
+  on ppc64.
 
 
 
