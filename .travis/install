@@ -17,6 +17,6 @@ mount -t sysfs none sys
 mount -R /dev dev
 mount -R /run run
 ln -s /run/shm dev/shm
-mkdir ./$CLONE_DIR
-mount -B $CLONE_DIR ./$CLONE_DIR
 chroot "$NEWROOT" useradd -m -c "Travis User" -s /bin/sh -G wheel -u $SUDO_UID $SUDO_USER
+mkdir -p ./$CLONE_DIR
+mount -B $CLONE_DIR ./$CLONE_DIR
