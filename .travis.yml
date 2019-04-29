@@ -1,0 +1,13 @@
+branches:
+  only:
+  - master
+dist: xenial
+sudo: required
+language: minimal
+install:
+  - sudo .travis/install
+script: |
+  . .travis/config
+  sudo chroot $NEWROOT su -l $USER sh -c "cd $CLONE_DIR; make LINKER_PATH=/lib/ld-musl-x86_64.so.1 LOADER_NAME=ld-linux-x86-64.so.2"
+notifications:
+  email: false
