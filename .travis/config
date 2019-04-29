@@ -1,4 +1,3 @@
 #!/bin/sh
 
-declare -r NEWROOT=/srv/adelie
-
+NEWROOT=/srv/adelie
