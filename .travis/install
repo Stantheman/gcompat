@@ -4,6 +4,7 @@
 
 curl -O https://distfiles.adelielinux.org/adelie/apk-tools-static/x86_64.apk
 tar -xzOf x86_64.apk sbin/apk.static > /tmp/apk.static
+chmod a+x /tmp/apk.static
 
 mkdir -p "$NEWROOT"/etc/apk
 /tmp/apk.static -X "https://mirrormaster.adelielinux.org/adelie/current/system" --root "$NEWROOT" --initdb --no-progress add adelie-core bash-binsh musl-dev gcc binutils
