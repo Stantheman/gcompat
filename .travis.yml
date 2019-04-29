@@ -2,6 +2,8 @@ branches:
   only:
   - master
 dist: xenial
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-certificates.crt
 env:
   global:
   - secure: "E8bFTpCU6UwrUwV4y+3vGQp72Vv7dMFu7zMXyIVNLI5uikVhln79nNyT57V43xTg8grBsBAK3nLQGZFIYSJ88kyAjqgd0WxXVsTfWLE+jmSk40KB7NC9AyDWZqXi9YKaPd5WJtArlFAdJhMKOV/HiiBpJjqns6sUxGZtYmvRTJ6ixUlDdPrlE4PI1NE4g22jaoHZ2WNYxgtLo9FGrNZnc8P/uxEsDnSmoUDhDQ30c9oXpX7xMtydOPPd3SOPCh/XitNDFlBQ9QbzMBzsvhnx0St00eLRG3TyPDxO0EI+FX5Rqunb/gC27RHISKoDw6JwPsWMmx7k34XYv5ariGZ3+tjsGlMRPw/66Qn33SIuSDfS2zGq/AvQBF6bd+NbxvsbEy4LyLTjhwtowrWTZvf9CIeMV4IKumHJEOliuKtJppfl9d/bZTDozdaifz4qdHdpYH+vi6GeabG5eK4JcWyMzhe74At0Zz+DxSRG3tBlHSv0zgcwOS62pzC5h+Ws9/Zjh1f/39ae4CXGbmfZ55XP7O4wPe/RMku0cSEigdv7jxtp+w22LuqawEJEdnQO95sCBV+/PoCMHs2k4mAdE+HP6qWJU4d/DxPlGx94ttQaGnzx+0k46hODHIzQeUzATmaxXLZefssZ2j1tV6ItoIXqopO5y+0GlVL2AJ+CCwCt4SM="
