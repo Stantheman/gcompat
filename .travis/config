@@ -1,3 +1,4 @@
 #!/bin/sh
 
 NEWROOT=/srv/adelie
+CLONE_DIR=${CLONE_DIR:-$(pwd)}
