@@ -1,5 +1,5 @@
 #include <stddef.h> /* NULL */
-#include <utmp.h>   /* struct utmp */
+#include <utmpx.h>   /* struct utmp */
 
 /**
  * Get user accounting database entries.
