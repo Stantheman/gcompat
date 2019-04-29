@@ -6,7 +6,8 @@ curl -O https://distfiles.adelielinux.org/adelie/apk-tools-static/x86_64.apk
 tar -xzOf x86_64.apk sbin/apk.static > /tmp/apk.static
 chmod a+x /tmp/apk.static
 
-mkdir -p "$NEWROOT"/etc/apk
+mkdir -p "$NEWROOT"/etc/apk/keys
+cp "$CLONE_DIR"/.travis/*.pub "$NEWROOT"/etc/apk/keys/
 /tmp/apk.static -X "https://distfiles.adelielinux.org/adelie/current/system" --root "$NEWROOT" --initdb --no-progress add adelie-core bash-binsh musl-dev gcc binutils
 
 cd "$NEWROOT"
