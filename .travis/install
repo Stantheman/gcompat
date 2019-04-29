@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/sh -e
 
 . $(dirname $0)/config
 
-curl -O https://mirrormaster.adelielinux.org/adelie/apk-tools-static/x86_64.apk
+curl -O https://distfiles.adelielinux.org/adelie/apk-tools-static/x86_64.apk
 tar -xzOf x86_64.apk sbin/apk.static > /tmp/apk.static
 
 mkdir -p "$NEWROOT"/etc/apk
 /tmp/apk.static -X "https://mirrormaster.adelielinux.org/adelie/current/system" --root "$NEWROOT" --initdb --no-progress add adelie-core bash-binsh musl-dev gcc binutils
 
-pushd "$NEWROOT"
+cd "$NEWROOT"
 
 mount -t proc none proc
 mount -t sysfs none sys
@@ -17,6 +17,4 @@ mount -R /run run
 ln -s /run/shm dev/shm
 mkdir ./$CLONE_DIR
 mount -B $CLONE_DIR ./$CLONE_DIR
-useradd -m -c "Travis User" -s /bin/sh -G wheel -u $SUDO_UID $SUDO_USER
-
-popd
+chroot "$NEWROOT" useradd -m -c "Travis User" -s /bin/sh -G wheel -u $SUDO_UID $SUDO_USER
