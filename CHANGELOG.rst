@@ -16,6 +16,12 @@ Build system
 
 * Allow building against libobstack.
 * Fix compatibility with Linux 4.17 and newer.
+* Travis CI is now used.
+
+Documentation
+-------------
+
+* README rewritten to conform to Adélie project standards.
 
 malloc
 ------
@@ -26,6 +32,11 @@ pthread
 -------
 
 * Add pthread_getname_np.
+
+string
+------
+
+* Add __strdup.
 
 wchar
 -----

@@ -197,6 +197,16 @@ size_t __strcspn_c2(const char *str, int bad, int bad2)
 }
 
 /**
+ * Alias for strdup.
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---strdup-1.html
+ */
+char *__strdup(const char *string)
+{
+	return strdup(string);
+}
+
+/**
  * Concatenate a string with part of another, with buffer overflow checking.
  *
  * LSB 5.0: LSB-Core-generic/baselib---strncat-chk-1.html
