@@ -8,6 +8,10 @@
   © 2016-2019 Adélie Linux and contributors.  NCSA open source licence.
 
 
+1.0.0 (20??-??-??)
+==================
+
+
 0.4.0 (2019-05-03)
 ==================
 
