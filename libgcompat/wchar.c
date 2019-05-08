@@ -40,6 +40,27 @@ int __vswprintf_chk(wchar_t *s, size_t n, int flag, size_t slen,
 }
 
 /**
+ * Copy a wide-character string, with buffer overflow checking
+ *
+ * LSB 5.0: LSB-Core-generic/baselib---wcscpy-chk-1.html
+ */
+wchar_t *__wcscpy_chk(wchar_t *dest, const wchar_t *src, size_t n)
+{
+	size_t srclen = wcslen(src) + 1;
+
+	assert(dest != NULL);
+	assert(src != NULL);
+	assert(n >= srclen);
+	if (dest < src) {
+		assert(dest + n <= src);
+	} else {
+		assert(src + n <= dest);
+	}
+
+	return wcscpy(dest, src);
+}
+
+/**
  * Representation of the glibc internals of wcstol(3).
  *
  * LSB 5.0: LSB-Core-generic/baselib---wcstol-internal-1.html
