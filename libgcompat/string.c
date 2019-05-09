@@ -167,10 +167,11 @@ char *__strcat_chk(char *dest, const char *src, size_t destlen)
  */
 char *__strcpy_chk(char *dest, const char *src, size_t destlen)
 {
-	size_t n = strlen(src) + 1;
+	size_t n;
 
 	assert(dest != NULL);
 	assert(src != NULL);
+	n = strlen(src) + 1;
 	assert(destlen >= n);
 	if (dest < src) {
 		assert(dest + n <= src);

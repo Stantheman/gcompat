@@ -64,7 +64,7 @@ alias(__libc_malloc, __malloc);
 
 void *__libc_memalign(size_t align, size_t len)
 {
-	void *result;
+	void *result = NULL;
 	if (posix_memalign(&result, align, len) != 0)
 		return NULL;
 	return result;
