@@ -288,17 +288,16 @@ void *memfrob(void *s, size_t n)
 char *strfry(char *s)
 {
 	static unsigned int seed;
-	size_t len = strlen(s), i, j;
-	char t;
+	size_t len = strlen(s);
 
 	if (!len)
 		return s;
 
 	seed += time(NULL) ^ getpid() ^ (uintptr_t) s;
 
-	for (i = 0; i < len - 1; ++i) {
-		j = rand_r(&seed) % (len - i) + i;
-		t = s[i];
+	for (size_t i = 0; i < len - 1; ++i) {
+		size_t j = rand_r(&seed) % (len - i) + i;
+		char t = s[i];
 		s[i] = s[j];
 		s[j] = t;
 	}
