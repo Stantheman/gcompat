@@ -145,11 +145,13 @@ char *__stpncpy_chk(char *dest, const char *src, size_t n, size_t destlen)
  */
 char *__strcat_chk(char *dest, const char *src, size_t destlen)
 {
-	size_t n = strlen(src) + 1;
-	size_t total = strnlen(dest, destlen) + n;
+	size_t n;
+	size_t total;
 
 	assert(dest != NULL);
 	assert(src != NULL);
+	n = strlen(src) + 1;
+	total = strnlen(dest, destlen) + n;
 	assert(destlen >= total);
 	if (dest < src) {
 		assert(dest + total <= src);
@@ -215,10 +217,11 @@ char *__strdup(const char *string)
  */
 char *__strncat_chk(char *dest, const char *src, size_t n, size_t destlen)
 {
-	size_t total = strnlen(dest, destlen) + n + 1;
+	size_t total;
 
 	assert(dest != NULL);
 	assert(src != NULL);
+	total = strnlen(dest, destlen) + n + 1;
 	assert(destlen >= total);
 	if (dest < src) {
 		assert(dest + total <= src);
