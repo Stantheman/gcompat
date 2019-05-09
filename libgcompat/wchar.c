@@ -46,10 +46,11 @@ int __vswprintf_chk(wchar_t *s, size_t n, int flag, size_t slen,
  */
 wchar_t *__wcscpy_chk(wchar_t *dest, const wchar_t *src, size_t n)
 {
-	size_t srclen = wcslen(src) + 1;
+	size_t srclen;
 
 	assert(dest != NULL);
 	assert(src != NULL);
+	srclen = wcslen(src) + 1;
 	assert(n >= srclen);
 	if (dest < src) {
 		assert(dest + n <= src);
